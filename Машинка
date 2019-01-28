@@ -1,0 +1,162 @@
+
+// ProgramDlg.cpp: файл реализации
+//
+
+#include "stdafx.h"
+#include "Program.h"
+#include "ProgramDlg.h"
+#include "afxdialogex.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+
+// диалог CProgramDlg
+
+
+
+CProgramDlg :: CProgramDlg (CWnd * pParent / * = nullptr * /)
+	: CDialog (IDD_PROGRAM_DIALOG, pParent)
+{
+	m_hIcon = AfxGetApp () -> LoadIcon (IDR_MAINFRAME);
+}
+
+void CProgramDlg :: DoDataExchange (CDataExchange * pDX)
+{
+	fg = правда;
+
+	SetWindowTextW (L "Программа");
+
+	CDialog :: DoDataExchange (PDX);
+}
+
+BEGIN_MESSAGE_MAP (CProgramDlg, CDialog)
+	ON_WM_PAINT ()
+	ON_WM_QUERYDRAGICON ()
+END_MESSAGE_MAP ()
+
+
+// обработчики сообщений CProgramDlg
+
+BOOL CProgramDlg :: OnInitDialog ()
+{
+	CDialog :: OnInitDialog ();
+
+	// Установить иконку для этого диалога. Фреймворк делает это автоматически
+	// когда главное окно приложения не является диалогом
+	SetIcon (m_hIcon, TRUE); // Установить большую иконку
+	SetIcon (m_hIcon, FALSE); // Установить маленькую иконку
+
+	// TODO: добавить дополнительную инициализацию здесь
+
+	вернуть ИСТИНА; // возвращаем TRUE, если вы не установили фокус на элемент управления
+}
+
+// Если вы добавите кнопку минимизации в ваш диалог, вам понадобится код ниже
+// нарисовать иконку. Для приложений MFC, использующих модель документа / представления,
+// это автоматически делается для вас фреймворком.
+
+void CProgramDlg :: OnPaint ()
+{
+	if (IsIconic ())
+	{
+		CPaintDC DC (это); // контекст устройства для рисования
+
+		SendMessage (WM_ICONERASEBKGND, reinterpret_cast <WPARAM> (dc.GetSafeHdc ()), 0);
+
+		// Центрируем иконку в прямоугольнике клиента
+		int cxIcon = GetSystemMetrics (SM_CXICON);
+		int cyIcon = GetSystemMetrics (SM_CYICON);
+		CRect rect;
+		GetClientRect (& Rect);
+		int x = (rect.Width () - cxIcon + 1) / 2;
+		int y = (rect.Height () - cyIcon + 1) / 2;
+
+		// Нарисовать иконку
+		dc.DrawIcon (x, y, m_hIcon);
+	}
+	еще
+	{
+		
+		CClientDC DC (это);
+		GetClientRect (& гс);
+
+		dc.FillSolidRect (& rc, RGB (255, 255, 255));
+
+		ср = RGB (0, 0, 0);
+		hPenOxy = CreatePen (PS_SOLID, 12, ср);
+		hOldPen = (HPEN) SelectObject (постоянный ток, hPenOxy);
+
+
+
+		x1 = w.left = rc.left + 275;
+		x2 = w.right = rc.right - 120;
+		y1 = w.top = rc.top + 70;
+		y2 = w.bottom = rc.bottom - 225;
+
+		dc.Rectangle (& ш);
+
+		w.left = x1 - 170;
+		w.top = y1 + 247;
+		право = х2 - 40;
+		w.bottom = y2 + 51;
+
+		dc.Rectangle (& ш);
+
+		int r1 = 110;
+		х = х2 - 200;
+		у = у2;
+
+		dc.Ellipse (x, y, x + r1, y + r1);
+
+		int r2 = 100;
+		х = х2 - 220;
+		у = у2 - 20;
+
+		dc.Ellipse (x + r2 / 2, y + r2 / 2, x + r2, y + r2);
+
+		r1 = 110;
+		х = х1 - 121;
+		у = у2;
+
+		dc.Ellipse (x, y, x + r1, y + r1);
+
+		r2 = 100;
+		х = х1 - 141;
+		у = у2 - 20;
+
+		dc.Ellipse (x + r2 / 2, y + r2 / 2, x + r2, y + r2);
+
+
+
+
+		dc.MoveTo (x1 - 120, y1 + 35);
+		dc.LineTo (x2 - 400, y1 + 35);
+		dc.LineTo (x2 - 400, y2);
+		dc.LineTo (x1 - 170, y2);
+		dc.LineTo (x1 - 170, y2 - 120);
+		dc.LineTo (x1 - 120, y1 + 35);
+
+		dc.MoveTo (x1 - 110, y1 + 50);
+		dc.LineTo (x2 - 420, y1 + 50);
+		dc.LineTo (x2 - 420, y2-80);
+		dc.LineTo (x1 - 150, y2-80);
+		dc.LineTo (x1 - 110, y1 + 50);
+
+
+
+
+		SelectObject (dc, hOldPen);
+		DeleteObject (hPenOxy);
+		
+		CDialog :: OnPaint ();
+	}
+}
+
+// Система вызывает эту функцию, чтобы получить курсор для отображения, пока пользователь перетаскивает
+// свернутое окно.
+HCURSOR CProgramDlg :: OnQueryDragIcon ()
+{
+	return static_cast <HCURSOR> (m_hIcon);
+}
